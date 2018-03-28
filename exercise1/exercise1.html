@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>exercise1</title>
+    <style>
+        .div {
+            width: 20%;
+            border: 1px solid grey;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var div1Interval, div2Interval;
+        $(document).ready(function () {
+            $(".start").on("click", function () {
+                div1Interval = updateDiv(".div1", 1000, 2);
+                div2Interval = updateDiv(".div2", 3000, 3);
+            });
+
+            $(".stop").on("click", function () {
+                clearInterval(div1Interval);
+                clearInterval(div2Interval);
+            });
+        });
+
+        function updateDiv(element, interval, increment) {
+            return setInterval(function () {
+                updateValue(element, increment);
+            }, interval);
+        }
+
+        function updateDiv3() {
+            var valueDiv1 = $(".div1 span").html();
+            var valueDiv2 = $(".div2 span").html();
+            var div3 = $(".div3");
+            var result = parseInt(valueDiv1) + parseInt(valueDiv2);
+            if (result % 5 === 0) {
+                div3.css("border", "none");
+            } else if (result % 2 === 0) {
+                div3.css("border", "2px solid green");
+            } else {
+                div3.css("border", "2px solid red");
+            }
+            $(".div3 span").html(result);
+        }
+
+        function updateValue(element, interval) {
+            var html = $(element + " span").html();
+            $(element + " span").html(parseInt(html) + interval);
+            updateDiv3();
+        }
+    </script>
+</head>
+<body>
+<div class="div1 div">
+    <h4>Div 1</h4>
+    <span>0</span>
+
+</div>
+<div class="div2 div">
+    <h4>Div 2</h4>
+    <span>0</span>
+</div>
+<div class="div3 div">
+    <h4>Div 3</h4>
+    <span>0</span>
+</div>
+<button class="start"> Start</button>
+<button class="stop">Stop</button>
+</body>
+</html>
